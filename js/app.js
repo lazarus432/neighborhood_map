@@ -10,29 +10,29 @@ var attractionsList = [];
 
 var attractions = [
 {
-  name: "",
-  location: {}
+  name: "Golden Gate Park",
+  location: {lat: 37.76904, lng: -122.483519}
 },
 {
-  name: "",
-  location: {}
+  name: "Fisherman's Wharf",
+  location: {lat: 37.8102062, lng: -122.4180268}
 },
 {
-  name: "",
-  location: {}
+  name: "Alcatraz Island",
+  location: {lat: 37.826039, lng: -122.4219159}
 },
 {
-  name: "",
-  location: {}
+  name: "Transamerica Pyramid",
+  location: {lat: 37.794651, lng: -122.4030265}
 },
 {
-  name: "",
-  location: {}
+  name: "Palace of Fine Arts",
+  location: {lat: 37.801663, lng: -122.447909}
 }
 ];
 
 
-// octopus
+// create a new map
 
 
 function initMap() {
