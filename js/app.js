@@ -38,7 +38,7 @@ var attractions = [
 function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
     center: {lat: 37.733795, lng: -122.446747},
-    zoom: 13
+    zoom: 11
   });
 
   largeInfoWindow = new google.maps.InfoWindow();
