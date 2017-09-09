@@ -1,5 +1,4 @@
 // model
-
 var map;
 var markers = [];
 var largeInfoWindow;
@@ -33,8 +32,6 @@ var attractions = [
 
 
 // create a new map
-
-
 function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
     center: {lat: 37.733795, lng: -122.446747},
@@ -50,7 +47,6 @@ function initMap() {
 
 
 // view model
-
 var view_model = function() {
   var self = this;
   this.attractionsList = ko.observableArray(attractions);
@@ -87,6 +83,22 @@ function populateInfoWindow(marker, InfoWindow) {
     InfoWindow.addListener('closeclick', function() {
       InfoWindow.marker = null;
     });
+  }
+}
+
+// show attractions function
+function showAttractions() {
+  var bounds = bounds;
+  for (var i = 0; i < markers.length; i++) {
+    markers[i].setMap(map);
+  }
+  map.fitBounds(bounds);
+}
+
+// hide attractions function
+function hideAttractions() {
+  for (var i = 0; i < markers.length; i++) {
+    markers[i].setMap(null);
   }
 }
 }
