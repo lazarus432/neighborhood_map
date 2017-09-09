@@ -54,4 +54,39 @@ function initMap() {
 var view_model = function() {
   var self = this;
   this.attractionsList = ko.observableArray(attractions);
+
+  for (var i = 0; i < attractions.length; i++) {
+    var position = attractions[i].location;
+    var title = attractions[i].name;
+
+    var marker = new google.maps.Marker({
+      map: map,
+      position: position,
+      name: attractions[i].name,
+      animation: google.maps.Animation.DROP,
+      id: attractions[i]
+    });
+
+    this.attractionsList()[i].marker = marker;
+    markers.push(marker);
+    bounds.extend(marker.position);
+    marker.addListener('click', function() {
+      populateInfoWindow(this, largeInfoWindow);
+    });
+  }
+  document.getElementById('show-attraction').addEventListener('click', showAttractions);
+  document.getElementById('hide-attraction').addEventListener('click', hideAttractions);
+
+
+function populateInfoWindow(marker, InfoWindow) {
+  if (InfoWindow.marker != marker) {
+    InfoWindow.marker = marker;
+    InfoWindow.setContent('<div>' + marker.name + '</div>');
+    InfoWindow.open(map,marker);
+
+    InfoWindow.addListener('closeclick', function() {
+      InfoWindow.marker = null;
+    });
+  }
+}
 }
