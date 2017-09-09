@@ -6,7 +6,7 @@ var viewModel;
 var bounds;
 var attractionsList = [];
 
-
+// populate attractions array with name and lat longs 
 var attractions = [
 {
   name: "Golden Gate Park",
@@ -51,10 +51,12 @@ var view_model = function() {
   var self = this;
   this.attractionsList = ko.observableArray(attractions);
 
+  // use attractions array to create an array of markers on initialize
   for (var i = 0; i < attractions.length; i++) {
     var position = attractions[i].location;
     var title = attractions[i].name;
 
+    // create a marker per attraction and put in markers array
     var marker = new google.maps.Marker({
       map: map,
       position: position,
@@ -64,16 +66,19 @@ var view_model = function() {
     });
 
     this.attractionsList()[i].marker = marker;
+    // push marker to empty markers array
     markers.push(marker);
+    // extend boundaries for each marker
     bounds.extend(marker.position);
     marker.addListener('click', function() {
       populateInfoWindow(this, largeInfoWindow);
     });
   }
+  // add event listeners to show/hide attractions buttons
   document.getElementById('show-attraction').addEventListener('click', showAttractions);
   document.getElementById('hide-attraction').addEventListener('click', hideAttractions);
 
-
+// populate info window with attraction name
 function populateInfoWindow(marker, InfoWindow) {
   if (InfoWindow.marker != marker) {
     InfoWindow.marker = marker;
