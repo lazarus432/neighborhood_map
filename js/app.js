@@ -30,7 +30,7 @@ var attractions = [
 },
 {
   name: "AT&T Park",
-  location: {lat: 37.7749, lng: -122.4194}
+  location: {lat: 37.778644, lng: -122.38938}
 }
 ];
 
@@ -39,7 +39,7 @@ var attractions = [
 function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
     center: {lat: 37.733795, lng: -122.446747},
-    zoom: 11
+    zoom: 12
   });
 
   largeInfoWindow = new google.maps.InfoWindow();
@@ -101,7 +101,7 @@ function showAttractions() {
   for (var i = 0; i < markers.length; i++) {
     markers[i].setMap(map);
   }
-  map.fitBounds(bounds);
+  //map.fitBounds(bounds);
 }
 
 // hide attractions function
