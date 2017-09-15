@@ -27,6 +27,10 @@ var attractions = [
 {
   name: "Palace of Fine Arts",
   location: {lat: 37.801663, lng: -122.447909}
+},
+{
+  name: "AT&T Park",
+  location: {lat: 37.7749, lng: -122.4194}
 }
 ];
 
