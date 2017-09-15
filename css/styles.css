@@ -8,17 +8,23 @@ html, body {
 .container {
   height: 100%;
   position: relative;
+  background-color: rgba(128,128,128,0.67);
+}
+
+.container-left-panel {
+  width: 20%;
+  padding: 2em;
+  text-align: center;
+  margin: 0;
 }
 
 h1 {
-  width: 21%;
-  text-align: center;
-  padding: 1em;
+  padding: 0;
   margin: 0;
 }
 
 .top-btn {
-  width: 25%;
+  padding: 1em;
   text-align: center;
 }
 
