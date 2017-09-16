@@ -7,6 +7,7 @@ var bounds;
 var attractionsList = [];
 
 
+
 // populate attractions array with name and lat longs 
 var attractions = [
 {
@@ -38,13 +39,59 @@ var attractions = [
 
 // create a new map
 function initMap() {
+  // create styles array to use with the map
+  var styles = [
+    {
+        "featureType": "road",
+        "elementType": "geometry",
+        "stylers": [
+            {
+                "lightness": 100
+            },
+            {
+                "visibility": "simplified"
+            }
+        ]
+    },
+    {
+        "featureType": "water",
+        "elementType": "geometry",
+        "stylers": [
+            {
+                "visibility": "on"
+            },
+            {
+                "color": "#C6E2FF"
+            }
+        ]
+    },
+    {
+        "featureType": "poi",
+        "elementType": "geometry.fill",
+        "stylers": [
+            {
+                "color": "#C5E3BF"
+            }
+        ]
+    },
+    {
+        "featureType": "road",
+        "elementType": "geometry.fill",
+        "stylers": [
+            {
+                "color": "#D1D1B8"
+            }
+        ]
+    }
+]
   map = new google.maps.Map(document.getElementById('map'), {
     center: {lat: 37.733795, lng: -122.446747},
+    styles: styles,
+    mapTypeControl: false,
     zoom: 12
   });
 
   largeInfoWindow = new google.maps.InfoWindow();
- 
   bounds = new google.maps.LatLngBounds();
   view_model = new view_model();
   ko.applyBindings(view_model);
@@ -58,7 +105,7 @@ var view_model = function() {
   this.attractionsList = ko.observableArray(attractions);
 
 // listing marker icon
-var icon_default = markerIcon('FF6600');
+var icon_default = markerIcon('5C5CAF');
 // highlighted icon when hovered over
 var icon_highlighted = markerIcon('FFFF33');
 
