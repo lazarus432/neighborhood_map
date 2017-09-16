@@ -11,6 +11,12 @@
           <input id = "show-attraction" type = "button" value = "Show Attractions">
           <input id = "hide-attraction" type = "button" value = "Hide Attractions">
         </div>
+        <hr>
+        <div>
+          <span class = "text">Search for other attractions</span>
+          <input id = "places-search" type = "text" placeholder = "IE: In and Out">
+          <input id = "go-places" type = "button" value = "Search">
+        </div> 
       </div>
       <div id="map"></div>
     </div>
@@ -28,6 +34,6 @@
     <script src = "js/lib/knockout.js"></script>
     <script src = "js/app.js"></script>
     <script async defer
-      src = "https://maps.googleapis.com/maps/api/js?&libraries=geometry&v=3&callback=initMap"></script>
+      src = "https://maps.googleapis.com/maps/api/js?&libraries=geometry,places&v=3&callback=initMap"></script>
   </body>
 </html>
