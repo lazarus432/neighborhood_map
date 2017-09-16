@@ -37,7 +37,7 @@ var attractions = [
 ];
 
 
-// create a new map
+// create a new map view 
 function initMap() {
   // create styles array to use with the map
   var styles = [
@@ -158,16 +158,42 @@ function markerIcon(markerColor) {
 
 
 // populate info window with attraction name
-function populateInfoWindow(marker, InfoWindow) {
-  if (InfoWindow.marker != marker) {
-    InfoWindow.marker = marker;
-    InfoWindow.setContent('<div>' + marker.name + '</div>');
-    InfoWindow.open(map,marker);
+function populateInfoWindow(marker, infowindow) {
+  if (infowindow.marker != marker) {
+    infowindow.marker = marker;
+    infowindow.setContent('<div>' + marker.name + '</div>');
+    infowindow.open(map,marker);
 
-    InfoWindow.addListener('closeclick', function() {
-      InfoWindow.marker = null;
+    infowindow.addListener('closeclick', function() {
+      infowindow.marker = null;
     });
+    var streetViewService = new google.maps.StreetViewService();
+    var radius = 50;
+
+    function streetView(data, status) {
+      if (status == google.maps.StreetViewStatus.OK) {
+        var nearStreetViewLocation = data.location.latLng;
+        var heading = google.maps.geometry.spherical.computeHeading(
+          nearStreetViewLocation, marker.position);
+        infowindow.setContent('<div>' + marker.name + '</div><div id = "pano"></div>');
+        var panoramaOptions = {
+          position: nearStreetViewLocation,
+          pov: {
+            heading: heading,
+            pitch: 30
+          }
+        };
+        var panorama = new google.maps.StreetViewPanorama(
+          document.getElementById('pano'), panoramaOptions);
+      } else {
+        infowindow.setContent('<div>' + marker.name + '</div>' +
+          '<div>No Street View Found</div>');
+      }
+    }
+    streetViewService.getPanoramaByLocation(marker.position, radius, streetView);
+    infowindow.open(map, marker);
   }
+}
 }
 
 // show attractions function
@@ -184,5 +210,4 @@ function hideAttractions() {
   for (var i = 0; i < markers.length; i++) {
     markers[i].setMap(null);
   }
-}
 }
