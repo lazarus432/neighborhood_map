@@ -316,8 +316,7 @@ function createMarkers(places) {
     icon: icon,
     title: place.name,
     position: place.geometry.location,
-    id: place.place_id,
-    zoom: 9
+    id: place.place_id
   });
   // create info window for each place
   var placeInfoWindow = new google.maps.InfoWindow();
