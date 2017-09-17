@@ -172,7 +172,6 @@ var searchBox = new google.maps.places.SearchBox(
     // extend boundaries for each marker
     bounds.extend(marker.position);
 
-
     marker.addListener('click', function() {
       populateInfoWindow(this, largeInfoWindow);
     });
@@ -188,12 +187,12 @@ var searchBox = new google.maps.places.SearchBox(
     searchBoxPlaces(this);
   });
 
-  document.getElementById('go-places').addEventListener('click', textSearchPlaces);
-
 
   // add event listeners to show/hide attractions buttons
   document.getElementById('show-attraction').addEventListener('click', showAttractions);
-  document.getElementById('hide-attraction').addEventListener('click', hideAttractions);
+  document.getElementById('hide-attraction').addEventListener('click', function() {
+    hideMarkers(markers);
+  });
 
 
 var filterPoints = function(data) {
@@ -213,15 +212,11 @@ self.filterList = ko.computed(function() {
   return ko.utils.arrayFilter(self.markerList(), function(list) {
     var result = (list.name.toLowerCase().search(go) >= 0);
     list.marker.setVisible(result);
-    list.marker.addListener('click', function() {
-      populateInfoWindow(this, infowindow);
-      list.marker.setAnimation(google.maps.Animation.BOUNCE);
-      setTimeout(function(){list.marker.setAnimation(null); }, 1500);
-    });
     return result;
   });
 });
 
+}
 
 // populate info window with attraction information
 function populateInfoWindow(marker, infowindow) {
@@ -262,19 +257,20 @@ function populateInfoWindow(marker, infowindow) {
       infowindow.open(map, marker);
     }
   }
-}
+
 
 // show attractions function
 function showAttractions() {
-  var bounds = bounds;
+  var bounds = new google.maps.LatLngBounds();
   for (var i = 0; i < markers.length; i++) {
     markers[i].setMap(map);
+    bounds.extend(markers[i].position);
   }
-  //map.fitBounds(bounds);
+  map.fitBounds(bounds);
 }
 
 // hide attractions function
-function hideAttractions() {
+function hideMarkers(markers) {
   for (var i = 0; i < markers.length; i++) {
     markers[i].setMap(null);
   }
@@ -292,26 +288,15 @@ function markerIcon(markerColor) {
 }
 
 function searchBoxPlaces(searchBox) {
-  hideAttractions(placeMarkers);
+  hideMarkers(placeMarkers);
   var places = searchBox.getPlaces();
-  createMarkers(places);
   if (places.length == 0) {
     window.alert('We did not find any places for that search.');
+  } else {
+    createMarkers(places);
   }
 }
 
-function textSearchPlaces() {
-  hideAttractions(placeMarkers);
-  var service = new google.maps.places.PlacesService(map);
-  service.textSearch({
-    query: document.getElementById('list'),
-    bounds: bounds
-  }, function (results, status) {
-    if (status === google.maps.places.PlacesServiceStatus.OK) {
-      createMarkers(results);
-    }
-  });
-}
 
 // this function creates markers for each place found in either places search.
 function createMarkers(places) {
@@ -331,7 +316,8 @@ function createMarkers(places) {
     icon: icon,
     title: place.name,
     position: place.geometry.location,
-    id: place.place_id
+    id: place.place_id,
+    zoom: 9
   });
   // create info window for each place
   var placeInfoWindow = new google.maps.InfoWindow();
@@ -392,6 +378,3 @@ function placesDetails(marker, infowindow) {
     }
   });
 }
-
-
-
