@@ -7,38 +7,31 @@
   </head>
   <body>
     <div class = "nav">
-        Location Search:
-      <input id = "places-search" type = "text" placeholder = "IE: In and Out">
-        Marker Search:
-      <input id = "filter-search" type = "text" placeholder = "Filter Markers" data-bind = "textInput: go">
+      <div class = "search-bar">
+        <span>Location Search:</span>
+        <input id = "places-search" type = "text" placeholder = "IE: In and Out">
+        <span>Marker Search:</span>
+        <input id = "filter-search" type = "text" placeholder = "Filter Markers" data-bind = "textInput: go">
+      </div>
     </div>
     <div class = "container">
-      <div class = "container-left-panel">
+      <div id = "toolbar">
         <h1>Top Attractions in San Fransisco</h1>
         <div class = "top-btn">
           <input id = "show-attraction" type = "button" value = "Show Attractions">
           <input id = "hide-attraction" type = "button" value = "Hide Attractions">
         </div>
-        <hr>
-          <div id = "go-places">
-            <ul id = "filterList" data-bind ="foreach: filterList">
-              <li id = "list" data-bind = "text: name,click: $parent.push"></li>
-            </ul>
-          </div>
       </div>
-      <div id="map">
+      <div id = "go-places">
+        <ul id = "filterList" data-bind ="foreach: filterList">
+          <ul id = "list" data-bind = "text: name"></ul>
+        </ul>
+      </div>
+      <div id = "wrapper">
+        <div id="map">
+        </div>
       </div>
     </div>
-
-
-
-
-
-
-
-
-
-
 
     <script src = "js/lib/knockout.js"></script>
     <script src = "js/app.js"></script>
