@@ -20,7 +20,8 @@
             <input id = "go-places" type = "button" value = "Search">
           </div>
           <span class = "filter">Filter through Markers:</span>
-          <input id = "filter-search" type = "text" placeholder = "Filter Markers" data-bind = "textInput: go">
+          <input id = "filter-search" type = "text" placeholder = "Filter Markers" data-bind = "textInput: go"></br>
+          <span class = "current-markers">Current Marker(s):</span>
           <ul id = "filterList" data-bind ="foreach: filterList">
             <ol data-bind = "text: name,click: $parent.setLoc"></ol>
           </ul>
