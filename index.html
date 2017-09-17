@@ -6,27 +6,28 @@
     <link rel = "stylesheet" type = "text/css" href = "css/styles.css">
   </head>
   <body>
+    <div class = "nav">
+        Location Search:
+      <input id = "places-search" type = "text" placeholder = "IE: In and Out">
+        Marker Search:
+      <input id = "filter-search" type = "text" placeholder = "Filter Markers" data-bind = "textInput: go">
+    </div>
     <div class = "container">
       <div class = "container-left-panel">
-        <h1>Popular Attractions in San Fransisco</h1>
+        <h1>Top Attractions in San Fransisco</h1>
         <div class = "top-btn">
           <input id = "show-attraction" type = "button" value = "Show Attractions">
           <input id = "hide-attraction" type = "button" value = "Hide Attractions">
         </div>
         <hr>
-          <span class = "text">Search for Place:</span>
-          <div class = "bottom-btn">
-            <input id = "places-search" type = "text" placeholder = "IE: In and Out"></br>
-            <input id = "go-places" type = "button" value = "Search">
+          <div id = "go-places">
+            <ul id = "filterList" data-bind ="foreach: filterList">
+              <li data-bind = "text: name,click: $parent.push"></li>
+            </ul>
           </div>
-          <span class = "filter">Filter through Markers:</span>
-          <input id = "filter-search" type = "text" placeholder = "Filter Markers" data-bind = "textInput: go"></br>
-          <span class = "current-markers">Current Marker(s):</span>
-          <ul id = "filterList" data-bind ="foreach: filterList">
-            <ol data-bind = "text: name,click: $parent.setLoc"></ol>
-          </ul>
       </div>
-      <div id="map"></div>
+      <div id="map">
+      </div>
     </div>
 
 
