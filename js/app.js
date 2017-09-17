@@ -94,7 +94,7 @@ function initMap() {
     }
 ]
   map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: 37.8102062, lng: -122.4180268},
+    center: {lat: 37.801663, lng: -122.447909},
     styles: styles,
     mapTypeControl: false,
     zoom: 12
@@ -107,14 +107,15 @@ function initMap() {
 
 }
 
-
 // view model
 var view_model = function() {
   var self = this;
+  self.listLoc = ko.observableArray();
+
   this.attractionsList = ko.observableArray(attractions);
 
 // listing marker icon
-var icon_default = markerIcon('5C5CAF');
+var icon_default = markerIcon('FF4500');
 // highlighted icon when hovered over
 var icon_highlighted = markerIcon('FFFF33');
 // create a search box object
@@ -142,6 +143,8 @@ var searchBox = new google.maps.places.SearchBox(
     markers.push(marker);
     // extend boundaries for each marker
     bounds.extend(marker.position);
+
+
     marker.addListener('click', function() {
       populateInfoWindow(this, largeInfoWindow);
     });
@@ -164,6 +167,31 @@ var searchBox = new google.maps.places.SearchBox(
   document.getElementById('show-attraction').addEventListener('click', showAttractions);
   document.getElementById('hide-attraction').addEventListener('click', hideAttractions);
 
+
+var filterPoints = function(data) {
+  this.name = data.name;
+  this.location = data.location;
+  this.marker = data.marker;
+};
+
+self.markerList = ko.observableArray();
+attractions.forEach(function(filterItem) {
+self.markerList.push(new filterPoints(filterItem));
+});
+
+self.go = ko.observable('');
+self.filterList = ko.computed(function() {
+  var go = self.go().toLowerCase();
+  return ko.utils.arrayFilter(self.markerList(), function(list) {
+    var result = (list.name.toLowerCase().search(go) >= 0);
+    list.marker.setVisible(result);
+    list.marker.addListener('click', function(){
+      list.marker.setAnimation(google.maps.Animation.BOUNCE);
+      setTimeout(function(){list.marker.setAnimation(null); }, 1500);
+    });
+    return result;
+  });
+});
 
 // populate info window with attraction information
 function populateInfoWindow(marker, infowindow) {
@@ -255,7 +283,7 @@ function textSearchPlaces() {
   });
 }
 
-// function creates markers for each place found in either places search.
+// this function creates markers for each place found in either places search.
 function createMarkers(places) {
   var bounds = new google.maps.LatLngBounds();
   for (var i = 0; i < places.length; i++) {
@@ -273,7 +301,16 @@ function createMarkers(places) {
     icon: icon,
     title: place.name,
     position: place.geometry.location,
-    id: place.id
+    id: place.place_id
+  });
+  // create info window for each place
+  var placeInfoWindow = new google.maps.InfoWindow();
+  marker.addListener('click', function() {
+    if (placeInfoWindow.marker == this) {
+      console.log("This infowindow already is on this marker.");
+    } else {
+      placesDetails(this, placeInfoWindow);
+    }
   });
   placeMarkers.push(marker);
   if (place.geometry.viewport) {
@@ -284,3 +321,47 @@ function createMarkers(places) {
 }
 map.fitBounds(bounds);
 }
+
+function placesDetails(marker, infowindow) {
+  var service = new google.maps.places.PlacesService(map);
+  service.getDetails({
+    placeId: marker.id
+  }, function(place, status) {
+    if (status === google.maps.places.PlacesServiceStatus.OK) {
+      infowindow.marker = marker;
+      var innerHTML = '<div>';
+      if (place.name) {
+        innerHTML += '<strong>' + place.name + '</strong>';
+      }
+      if (place.formatted_address) {
+        innerHTML += '<br>' + place.formatted_address;
+      }
+      if (place.formatted_phone_number) {
+        innerHTML += '<br>' + place.formatted_phone_number;
+      }
+      if (place.opening_hours) {
+        innerHTML += '<br><br><strong>Hours:</strong><br>' +
+          place.opening_hours.weekday_text[0] + '<br>' +
+          place.opening_hours.weekday_text[1] + '<br>' +
+          place.opening_hours.weekday_text[2] + '<br>' +
+          place.opening_hours.weekday_text[3] + '<br>' +
+          place.opening_hours.weekday_text[4] + '<br>' +
+          place.opening_hours.weekday_text[5] + '<br>' +
+          place.opening_hours.weekday_text[6];
+      }
+      if (place.photos) {
+        innerHTML += '<br><br><img src ="' + place.photos[0].getUrl(
+          {maxHeight: 100, maxWidth: 200}) + '">';
+      }
+      innerHTML += '</div>';
+      infowindow.setContent(innerHTML);
+      infowindow.open(map, marker);
+      infowindow.addListener('closeclick', function() {
+        infowindow.marker = null;
+      });
+    }
+  });
+}
+
+
+
