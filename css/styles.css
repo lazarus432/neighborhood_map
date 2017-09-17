@@ -3,17 +3,17 @@ html, body {
   height: 100%;
   margin: 0;
   padding: 0;
+  background-color: rgba(128,128,128,0.67);
 }
 
 .container {
   height: 100%;
   position: relative;
-  background-color: rgba(128,128,128,0.67);
 }
 
 .container-left-panel {
-  width: 20%;
-  padding: 2em;
+  width: 17.5%;
+  padding: 10px 0px 0px 10px;
   text-align: center;
   margin: 0;
 }
@@ -46,22 +46,6 @@ h1 {
   font-family: sans-serif;
 }
 
-#places-search {
-  width: 290px;
-  margin-top: 10px;
-}
-
-#go-places {
-  margin: 1em;
-  text-align: center;
-  width: 100px;
-}
-
-#filter-search {
-  margin: 1em;
-  width: 200px;
-}
-
 #filterList {
   padding-top: 20px;
   margin: 0;
@@ -72,4 +56,29 @@ h1 {
 
 ol {
   -webkit-padding-start: 0;
+}
+
+.nav {
+  text-align: right;
+}
+
+input[type=text] {
+    width: 130px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    background-color: white;
+    background-image: url('searchicon.png');
+    background-size: 35px 35px;
+    background-position: 1px 4px; 
+    background-repeat: no-repeat;
+    padding: 12px 20px 12px 40px;
+    position: relative;
+    -webkit-transition: width 0.4s ease-in-out;
+    transition: width 0.4s ease-in-out;
+}
+
+input[type=text]:focus {
+  width: 25%;
 }
