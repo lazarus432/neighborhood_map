@@ -39,4 +39,37 @@ h1 {
   left: 362px;
   position: absolute;
   right: 0px;
-};
+}
+
+.text {
+  margin-left: 0;
+  font-family: sans-serif;
+}
+
+#places-search {
+  width: 290px;
+  margin-top: 10px;
+}
+
+#go-places {
+  margin: 1em;
+  text-align: center;
+  width: 100px;
+}
+
+#filter-search {
+  margin: 1em;
+  width: 200px;
+}
+
+#filterList {
+  padding-top: 20px;
+  margin: 0;
+  -webkit-padding-start: 0;
+  -webkit-margin-before: 0;
+  -webkit-margin-after: 0;
+}
+
+ol {
+  -webkit-padding-start: 0;
+}
