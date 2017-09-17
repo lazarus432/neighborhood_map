@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta charset = "utf-8">
+    <meta name = "viewport" content = "width = device-width, initial-scale = 1.0">
     <link rel = "stylesheet" type = "text/css" href = "css/styles.css">
   </head>
   <body>
@@ -12,11 +14,16 @@
           <input id = "hide-attraction" type = "button" value = "Hide Attractions">
         </div>
         <hr>
-        <div>
-          <span class = "text">Search for other attractions</span>
-          <input id = "places-search" type = "text" placeholder = "IE: In and Out">
-          <input id = "go-places" type = "button" value = "Search">
-        </div> 
+          <span class = "text">Search for Place:</span>
+          <div class = "bottom-btn">
+            <input id = "places-search" type = "text" placeholder = "IE: In and Out"></br>
+            <input id = "go-places" type = "button" value = "Search">
+          </div>
+          <span class = "filter">Filter through Markers:</span>
+          <input id = "filter-search" type = "text" placeholder = "Filter Markers" data-bind = "textInput: go">
+          <ul id = "filterList" data-bind ="foreach: filterList">
+            <ol data-bind = "text: name,click: $parent.setLoc"></ol>
+          </ul>
       </div>
       <div id="map"></div>
     </div>
