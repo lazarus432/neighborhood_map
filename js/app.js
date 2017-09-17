@@ -214,7 +214,7 @@ self.filterList = ko.computed(function() {
     var result = (list.name.toLowerCase().search(go) >= 0);
     list.marker.setVisible(result);
     list.marker.addListener('click', function() {
-      populateInfoWindow(this, largeInfoWindow);
+      populateInfoWindow(this, infowindow);
       list.marker.setAnimation(google.maps.Animation.BOUNCE);
       setTimeout(function(){list.marker.setAnimation(null); }, 1500);
     });
@@ -304,7 +304,7 @@ function textSearchPlaces() {
   hideAttractions(placeMarkers);
   var service = new google.maps.places.PlacesService(map);
   service.textSearch({
-    query: document.getElementById('places-search').value,
+    query: document.getElementById('list'),
     bounds: bounds
   }, function (results, status) {
     if (status === google.maps.places.PlacesServiceStatus.OK) {
