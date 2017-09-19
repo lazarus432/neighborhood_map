@@ -1,38 +1,11 @@
  
 @media screen and (max-width: 700px) {
-  .container {
+  html, body {
+    font-family: Arial, sans-serif;
     height: 100%;
-    position: relative;
+    margin: 0;
+    padding: 0;
   }
-
-  #toolbar {
-    position: absolute;
-    width: 20%;
-    text-align: center;
-    border: 1px dashed #ddd;
-    box-shadow: 0 0 0 3px #fff, 0 0 0 5px #ddd, 0 0 0 10px #fff, 0 0 2px 10px #eee;
-    background-color: #fff;
-    top: 30px;
-    left: 30px;
-    z-index: 99;
-  }
-
-  h1 {
-    color: pink;
-  }
-
-  #map {
-    bottom:0px;
-    height: 100%;
-    position: absolute;
-    left: 0px;
-    right: 0px;
-    top: 0px;
-  }
-}
-
-
-@media screen and (min-width: 700px) and (max-width: 1200px) {
 
   .container {
     height: 100%;
@@ -51,8 +24,37 @@
     z-index: 99;
   }
 
+  #go-places {
+    position: absolute;
+    padding: 10px;
+    width: 15%;
+    z-index: 99;
+    left: 30px;
+    bottom: 30px;
+    text-align: center;
+    border: 1px dashed #ddd;
+    box-shadow: 0 0 0 3px #fff, 0 0 0 5px #ddd, 0 0 0 10px #fff, 0 0 2px 10px #eee;
+    background-color: #fff;
+  }
+
+  .nav {
+  }
+
+  span {
+    padding-right: 10px;
+  }
+
   h1 {
-    color: pink;
+    margin: 10px 0 10px 0;
+  }
+
+  .top-btn {
+    padding: 15px;
+  }
+
+  #pano {
+    width: 300px;
+    height: 300px;
   }
 
   #map {
@@ -63,91 +65,19 @@
     right: 0px;
     top: 0px;
   }
-}
 
+  #filterList {
+    margin: 0;
+    -webkit-padding-start: 0;
+    -webkit-margin-before: 0;
+    -webkit-margin-after: 0;
+  }
 
+  ul {
+    -webkit-padding-start: 0;
+  }
 
-
-@media screen and (min-width: 1200px) {
-
-html, body {
-  font-family: Arial, sans-serif;
-  height: 100%;
-  margin: 0;
-  padding: 0;
-}
-
-.container {
-  height: 100%;
-  position: relative;
-}
-
-#toolbar {
-  position: absolute;
-  width: 20%;
-  text-align: center;
-  border: 1px dashed #ddd;
-  box-shadow: 0 0 0 3px #fff, 0 0 0 5px #ddd, 0 0 0 10px #fff, 0 0 2px 10px #eee;
-  background-color: #fff;
-  top: 30px;
-  left: 30px;
-  z-index: 99;
-}
-
-#go-places {
-  position: absolute;
-  padding: 10px;
-  width: 15%;
-  z-index: 99;
-  left: 30px;
-  bottom: 30px;
-  text-align: center;
-  border: 1px dashed #ddd;
-  box-shadow: 0 0 0 3px #fff, 0 0 0 5px #ddd, 0 0 0 10px #fff, 0 0 2px 10px #eee;
-  background-color: #fff;
-}
-
-.nav {
-}
-
-span {
-  padding-right: 10px;
-}
-
-h1 {
-  margin: 10px 0 10px 0;
-}
-
-.top-btn {
-  padding: 15px;
-}
-
-#pano {
-  width: 300px;
-  height: 300px;
-}
-
-#map {
-  bottom:0px;
-  height: 100%;
-  position: absolute;
-  left: 0px;
-  right: 0px;
-  top: 0px;
-}
-
-#filterList {
-  margin: 0;
-  -webkit-padding-start: 0;
-  -webkit-margin-before: 0;
-  -webkit-margin-after: 0;
-}
-
-ul {
-  -webkit-padding-start: 0;
-}
-
-input[type=text] {
+  input[type=text] {
     width: 75%;
     box-sizing: border-box;
     border: 2px solid #ccc;
@@ -162,5 +92,200 @@ input[type=text] {
     position: relative;
     -webkit-transition: width 0.4s ease-in-out;
     transition: width 0.4s ease-in-out;
+  }
 }
+
+
+@media screen and (min-width: 700px) and (max-width: 1200px) {
+  html, body {
+    font-family: Arial, sans-serif;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  .container {
+    height: 100%;
+    position: relative;
+  }
+
+  #toolbar {
+    position: absolute;
+    width: 20%;
+    text-align: center;
+    border: 1px dashed #ddd;
+    box-shadow: 0 0 0 3px #fff, 0 0 0 5px #ddd, 0 0 0 10px #fff, 0 0 2px 10px #eee;
+    background-color: #fff;
+    top: 30px;
+    left: 30px;
+    z-index: 99;
+  }
+
+  #go-places {
+    position: absolute;
+    padding: 10px;
+    width: 15%;
+    z-index: 99;
+    left: 30px;
+    bottom: 30px;
+    text-align: center;
+    border: 1px dashed #ddd;
+    box-shadow: 0 0 0 3px #fff, 0 0 0 5px #ddd, 0 0 0 10px #fff, 0 0 2px 10px #eee;
+    background-color: #fff;
+  }
+
+  .nav {
+  }
+
+  span {
+    padding-right: 10px;
+  }
+
+  h1 {
+    margin: 10px 0 10px 0;
+  }
+
+  .top-btn {
+    padding: 15px;
+  }
+
+  #pano {
+    width: 300px;
+    height: 300px;
+  }
+
+  #map {
+    bottom:0px;
+    height: 100%;
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    top: 0px;
+  }
+
+  #filterList {
+    margin: 0;
+    -webkit-padding-start: 0;
+    -webkit-margin-before: 0;
+    -webkit-margin-after: 0;
+  }
+
+  ul {
+    -webkit-padding-start: 0;
+  }
+
+  input[type=text] {
+    width: 75%;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    background-color: white;
+    background-image: url('searchicon.png');
+    background-size: 35px 35px;
+    background-position: 1px 4px; 
+    background-repeat: no-repeat;
+    padding: 12px 20px 12px 40px;
+    position: relative;
+    -webkit-transition: width 0.4s ease-in-out;
+    transition: width 0.4s ease-in-out;
+  }
+}
+
+
+@media screen and (min-width: 1200px) {
+
+  html, body {
+    font-family: Arial, sans-serif;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  .container {
+    height: 100%;
+    position: relative;
+  }
+
+  #toolbar {
+    position: absolute;
+    width: 20%;
+    text-align: center;
+    border: 1px dashed #ddd;
+    box-shadow: 0 0 0 3px #fff, 0 0 0 5px #ddd, 0 0 0 10px #fff, 0 0 2px 10px #eee;
+    background-color: #fff;
+    top: 30px;
+    left: 30px;
+    z-index: 99;
+  }
+
+  #go-places {
+    position: absolute;
+    padding: 10px;
+    width: 15%;
+    z-index: 99;
+    left: 30px;
+    bottom: 30px;
+    text-align: center;
+    border: 1px dashed #ddd;
+    box-shadow: 0 0 0 3px #fff, 0 0 0 5px #ddd, 0 0 0 10px #fff, 0 0 2px 10px #eee;
+    background-color: #fff;
+  }
+
+  .nav {
+  }
+
+  span {
+    padding-right: 10px;
+  }
+
+  h1 {
+    margin: 10px 0 10px 0;
+  }
+
+  .top-btn {
+    padding: 15px;
+  }
+
+  #pano {
+    width: 300px;
+    height: 300px;
+  }
+
+  #map {
+    bottom:0px;
+    height: 100%;
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    top: 0px;
+  }
+
+  #filterList {
+    margin: 0;
+    -webkit-padding-start: 0;
+    -webkit-margin-before: 0;
+    -webkit-margin-after: 0;
+  }
+
+  ul {
+    -webkit-padding-start: 0;
+  }
+
+  input[type=text] {
+    width: 75%;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    background-color: white;
+    background-image: url('searchicon.png');
+    background-size: 35px 35px;
+    background-position: 1px 4px; 
+    background-repeat: no-repeat;
+    padding: 12px 20px 12px 40px;
+    position: relative;
+    -webkit-transition: width 0.4s ease-in-out;
+    transition: width 0.4s ease-in-out;
+  }
 }
