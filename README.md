@@ -23,6 +23,5 @@ Display the top 15 attractions in San Francisco with the click of a button! Sear
 +[Map Style](https://snazzymaps.com/)
 
 ## Author
----
 
 +**Nicolas Bolduc** _-Initial Work-_ [Lazarus](https://github.com/lazarus432)
