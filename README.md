@@ -1,7 +1,6 @@
 # San Francisco Attractions Map
 
-Display the top 15 attractions in San Francisco with the click of a button! Searching for a restaurant or just a local In-and-Out Burger has never been easier. 
-
+Display the top 15 attractions in San Francisco with the click of a button! Searching for a restaurant or just a local In-and-Out Burger has never been easier.
 
 ## Getting Started
 
@@ -20,8 +19,8 @@ Display the top 15 attractions in San Francisco with the click of a button! Sear
 
 * [KnockOutJS](http://knockoutjs.com/) - Organizational Library
 * [Google Maps JavaScript API](https://developers.google.com/maps/documentation/javascript/)
-* [Map Style](https://snazzymaps.com/)
+* [Map Style](https://snazzymaps.com/) - Snazzy Maps
 
 ## Author
 
-* **Nicolas Bolduc** _-Initial Work-_ [Lazarus](https://github.com/lazarus432)
+* **Nicolas Bolduc *-Initial Work-* [Lazarus](https://github.com/lazarus432)
