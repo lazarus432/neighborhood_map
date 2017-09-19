@@ -6,25 +6,27 @@
     <link rel = "stylesheet" type = "text/css" href = "css/styles.css">
   </head>
   <body>
-    <div class = "nav">
-      <div class = "search-bar">
-        <span>Location Search:</span>
-        <input id = "places-search" type = "text" placeholder = "IE: In and Out">
-        <span>Marker Search:</span>
-        <input id = "filter-search" type = "text" placeholder = "Filter Markers" data-bind = "textInput: go">
-      </div>
-    </div>
     <div class = "container">
-      <div id = "toolbar">
-        <h1>Top Attractions in San Francisco</h1>
-        <div class = "top-btn">
+      <div id = "side-bar">
+        <div class = "toolbar">
+          <h1>Top Attractions in San Francisco</h1>
+          <div class = "top-btn">
           <input id = "show-attraction" type = "button" value = "Show Attractions">
           <input id = "hide-attraction" type = "button" value = "Hide Attractions">
         </div>
       </div>
-      <div id = "go-places">
+      <div class = "search-bar-contain">
+        <div class = "location-search">
+          <span>Location Search:</span>
+          <input id = "places-search" type = "text" placeholder = "IE: Starbucks...">
+        </div>
+        <div class = "filter-search">
+          <span>Filter Markers:</span>
+          <input id = "filter-search" type = "text" placeholder = "Filter Markers..." data-bind = "textInput: go">
+        </div>
+      </div>
         <ul id = "filterList" data-bind ="foreach: filterList">
-          <ul id = "list" data-bind = "text: name"></ul>
+          <button id = "list" data-bind = "text: name"></button>
         </ul>
       </div>
       <div id = "wrapper">
