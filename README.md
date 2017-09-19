@@ -18,10 +18,10 @@ Display the top 15 attractions in San Francisco with the click of a button! Sear
 
 ## Built With
 
-+[KnockOutJS](http://knockoutjs.com/) - Organizational Library
-+[Google Maps JavaScript API](https://developers.google.com/maps/documentation/javascript/)
-+[Map Style](https://snazzymaps.com/)
+* [KnockOutJS](http://knockoutjs.com/) - Organizational Library
+* [Google Maps JavaScript API](https://developers.google.com/maps/documentation/javascript/)
+* [Map Style](https://snazzymaps.com/)
 
 ## Author
 
-+**Nicolas Bolduc** _-Initial Work-_ [Lazarus](https://github.com/lazarus432)
+* **Nicolas Bolduc** _-Initial Work-_ [Lazarus](https://github.com/lazarus432)
