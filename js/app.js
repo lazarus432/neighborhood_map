@@ -60,7 +60,7 @@ var attractions = [
   location: {lat: 37.778644, lng: -122.38938}
 },
 {
-  name: "San Fransisco Zoo",
+  name: "San Francisco Zoo",
   location: {lat: 37.732956, lng: -122.502953}
 },
 {
@@ -185,6 +185,10 @@ var searchBox = new google.maps.places.SearchBox(
     this.showClicked = function(position) {
       google.maps.event.trigger(position.marker, 'click');
     };
+
+    this.showMarkers = function(markers) {
+      google.maps.event.trigger(markers, 'click');
+    };
   
 
   searchBox.addListener('places_changed', function() {
@@ -194,7 +198,9 @@ var searchBox = new google.maps.places.SearchBox(
 
 
   // add event listeners to show/hide attractions buttons
-  document.getElementById('show-attraction').addEventListener('click', showAttractions);
+  document.getElementById('show-attraction').addEventListener('click', function() {
+    showMarkers(markers);
+  });
   document.getElementById('hide-attraction').addEventListener('click', function() {
     hideMarkers(markers);
   });
@@ -265,7 +271,7 @@ function populateInfoWindow(marker, infowindow) {
 
 
 // show attractions function
-function showAttractions() {
+function showMarkers(markers) {
   var bounds = new google.maps.LatLngBounds();
   for (var i = 0; i < markers.length; i++) {
     markers[i].setMap(map);
