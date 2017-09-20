@@ -181,11 +181,16 @@ var searchBox = new google.maps.places.SearchBox(
     marker.addListener('mouseout', function() {
       this.setIcon(icon_default);
     });
-  }
+
+    this.showClicked = function(position) {
+      google.maps.event.trigger(position.marker, 'click');
+    };
+  
 
   searchBox.addListener('places_changed', function() {
     searchBoxPlaces(this);
   });
+}
 
 
   // add event listeners to show/hide attractions buttons

@@ -30,7 +30,7 @@
         </div>
       </div>
         <ul id = "filterList" data-bind ="foreach: filterList">
-          <button id = "list" data-bind = "text: name"></button>
+          <button id = "list" data-bind = "text: name, click: $root.showClicked"></button>
         </ul>
       </div>
       <div id = "wrapper">
