@@ -8,6 +8,10 @@
   <body>
     <div class = "container">
       <div id = "side-bar">
+        <div class = "weather-contain">
+          <ul id = "weather">
+          </ul>
+        </div>
         <div class = "toolbar">
           <h1>Top Attractions in San Francisco</h1>
           <div class = "top-btn">
@@ -32,11 +36,16 @@
       <div id = "wrapper">
         <div id="map">
         </div>
+        <button id = "weather-btn">Current Weather</button>
       </div>
+      
+
     </div>
 
     <script src = "js/lib/knockout.js"></script>
+    <script src = "js/lib/jquery-3.2.1.min.js"></script>
     <script src = "js/app.js"></script>
+    <script src = "js/weather-api.js"></script>
     <script async defer
       src = "https://maps.googleapis.com/maps/api/js?&libraries=geometry,places&v=3&callback=initMap"></script>
   </body>
