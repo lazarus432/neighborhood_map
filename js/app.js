@@ -337,6 +337,7 @@ function createMarkers(places) {
 map.fitBounds(bounds);
 }
 
+
 function placesDetails(marker, infowindow) {
   var service = new google.maps.places.PlacesService(map);
   service.getDetails({
