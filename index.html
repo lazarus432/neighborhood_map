@@ -7,36 +7,44 @@
   </head>
   <body>
     <div class = "container">
-      <div class = "weather-contain">
-        <ul id = "weather">
-        </ul>
-      </div>
-      <div id = "side-bar">
-        <div class = "toolbar">
-          <h1>Top Attractions in San Francisco</h1>
-          <div class = "top-btn">
-          <input id = "show-attraction" type = "button" value = "Show Attractions">
-          <input id = "hide-attraction" type = "button" value = "Hide Attractions">
+      <div class = "nav-bar">
+        <div class = "dropdown1">
+          <button class = "dropbtn1">Info</button>
+          <ul class = "dropdown-content1">
+            <h1>Top Attractions in San Francisco</h1></br>
+
+            <div class = "attract-btn">
+              <input id = "show-attraction" type = "button" value = "Show Attractions">
+              <input id = "hide-attraction" type = "button" value = "Hide Attractions">
+            </div>
+
+            <div class = "search-content">
+              <span>Location Search:</span></br>
+              <input id = "places-search" type = "text" placeholder = "IE: Starbucks..."><br><br>
+              <span>Filter Markers:</span></br>
+              <input id = "filter-search" type = "text" placeholder = "Filter Markers..." data-bind = "textInput: go">
+            </div>
+          </ul>
         </div>
+
+          <div class = "dropdown2">
+            <button class = "dropbtn2">Current Weather</button>
+            <ul class = "dropdown-content2">
+              <ul id = "weather"></ul>
+            </ul>
+          </div>
+
+          <div class = "dropdown">
+            <button class = "dropbtn">Attractions</button>
+            <ul class = "dropdown-content" id = "filterList" data-bind ="foreach: filterList">
+              <li><a href = "#" data-bind = "text: name, click: $root.showClicked"></a></li>
+            </ul>
+          </div>
       </div>
-      <div class = "search-bar-contain">
-        <div class = "location-search">
-          <span>Location Search:</span>
-          <input id = "places-search" type = "text" placeholder = "IE: Starbucks...">
-        </div>
-        <div class = "filter-search">
-          <span>Filter Markers:</span>
-          <input id = "filter-search" type = "text" placeholder = "Filter Markers..." data-bind = "textInput: go">
-        </div>
-      </div>
-        <ul id = "filterList" data-bind ="foreach: filterList">
-          <button id = "list" data-bind = "text: name, click: $root.showClicked"></button>
-        </ul>
-      </div>
-      <div id = "wrapper">
-        <div id="map">
-        </div>
-      </div>
+          
+          <div id = "wrapper">
+            <div id="map"></div>
+          </div>
       
 
     </div>
