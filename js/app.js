@@ -1,76 +1,11 @@
 // model
 var map;
 var markers = [];
-var largeInfoWindow;
 var viewModel;
 var bounds;
 var attractionsList = [];
 var placeMarkers  = [];
-
-
-// populate attractions array with name and lat longs 
-var attractions = [
-{
-  name: "Golden Gate Bridge",
-  location: {lat: 37.8197222, lng: -122.4788889}
-},
-{
-  name: "Fisherman's Wharf",
-  location: {lat: 37.8102062, lng: -122.4180268}
-},
-{
-  name: "Pier 39",
-  location: {lat: 37.8096506, lng: -122.410249}
-},
-{
-  name: "Alcatraz Island",
-  location: {lat: 37.826039, lng: -122.4219159}
-},
-{
-  name: "Transamerica Pyramid",
-  location: {lat: 37.794651, lng: -122.4030265}
-},
-{
-  name: "Palace of Fine Arts",
-  location: {lat: 37.801663, lng: -122.447909}
-},
-{
-  name: "Lombard Street",
-  location: {lat: 37.800129, lng: -122.434215}
-},
-{
-  name: "DeYoung Museum",
-  location: {lat: 37.7713188, lng: -122.4691383}
-},
-{
-  name: "Exploratorium",
-  location: {lat: 37.8008, lng: -122.3986}
-},
-{
-  name: "SFMOMA",
-  location: {lat: 37.7857, lng: -122.4011}
-},
-{
-  name: "Angel Island State Park",
-  location: {lat: 37.8636, lng: -122.4319}
-},
-{
-  name: "AT&T Park",
-  location: {lat: 37.778644, lng: -122.38938}
-},
-{
-  name: "San Francisco Zoo",
-  location: {lat: 37.732956, lng: -122.502953}
-},
-{
-  name: "Golden Gate Park",
-  location: {lat: 37.76904, lng: -122.483519}
-},
-{
-  name: "California Academy of Sciences",
-  location: {lat: 37.7699, lng: -122.4661}
-}
-];
+var infowindow;
 
 
 // create a new map view 
@@ -128,33 +63,34 @@ function initMap() {
     zoom: 12
   });
 
-  largeInfoWindow = new google.maps.InfoWindow();
   bounds = new google.maps.LatLngBounds();
-  view_model = new view_model();
-  ko.applyBindings(view_model);
+  ViewModel = new ViewModel();
+  ko.applyBindings(ViewModel);
+  infowindow = new google.maps.InfoWindow();
+  largeInfoWindow = new google.maps.InfoWindow;
 
 }
 
-// view model
-var view_model = function() {
-  var self = this;
-  self.listLoc = ko.observableArray();
 
+var ViewModel = function() {
+  var self = this;
   this.attractionsList = ko.observableArray(attractions);
 
-// listing marker icon
-var icon_default = markerIcon('FF4500');
-// highlighted icon when hovered over
-var icon_highlighted = markerIcon('FFFF33');
-var icon_clicked = markerIcon('00cc00');
-// create a search box object
-var searchBox = new google.maps.places.SearchBox(
-  document.getElementById('places-search'));
+
+  var icon_highlighted = markerIcon('C6E2FF')
+  // listing marker icon
+  var icon_default = markerIcon('FF4500');
+  // highlighted icon when hovered over
+  var current_icon = markerIcon('FFFF33');
+  // create a search box object
+  var searchBox = new google.maps.places.SearchBox(
+    document.getElementById('places-search'));
+
 
 
 function clickListener() {
-  populateInfoWindow(this, largeInfoWindow);
-    this.setIcon();
+  populateInfoWindow(this, infowindow);
+    this.setIcon(current_icon);
 }
 
 function mouseoverListener() {
@@ -164,7 +100,7 @@ function mouseoverListener() {
 function mouseoutListener() {
     this.setIcon(icon_default);
 
-} 
+}
 
   // use attractions array to create an array of markers on initialize
   for (var i = 0; i < attractions.length; i++) {
@@ -178,7 +114,7 @@ function mouseoutListener() {
       name: attractions[i].name,
       icon: icon_default,
       animation: google.maps.Animation.DROP,
-      id: attractions[i]
+      id: attractions[i].placeID
     });
 
     this.attractionsList()[i].marker = marker;
@@ -186,6 +122,7 @@ function mouseoutListener() {
     markers.push(marker);
     // extend boundaries for each marker
     bounds.extend(marker.position);
+
 
     marker.addListener('click', clickListener);
     marker.addListener('mouseover', mouseoverListener);
@@ -204,15 +141,6 @@ function mouseoutListener() {
   
     searchBox.addListener('places_changed', function() {
     searchBoxPlaces(this);
-  });
-
-
-  // add event listeners to show/hide attractions buttons
-  document.getElementById('show-attraction').addEventListener('click', function() {
-    showMarkers(markers);
-  });
-  document.getElementById('hide-attraction').addEventListener('click', function() {
-    hideMarkers(markers);
   });
 
   var filterPoints = function(data) {
@@ -254,42 +182,62 @@ function getStreetView(data, status) {
     var panorama = new google.maps.StreetViewPanorama(
       document.getElementById('pano'), panoramaOptions);
   } else {
-    largeInfoWindow.setContent('<div>' + name + '</div>' +
+    infowindow.setContent('<div style = "text-align:center">' + titleContent + ' </div>' +
       '<div>No Street View Found</div>');
   }
 }
 
 
-// populate info window with attraction information
-function populateInfoWindow(marker, infowindow) {
-  if (infowindow.marker != marker) {
-    infowindow.marker = marker;
-    infowindow.setContent('<div>' + marker.name + '</div>');
-    infowindow.open(map,marker);
+// get foursquare information
+var fourSquare = function(marker) {
 
-    infowindow.addListener('closeclick', function() {
-      infowindow.marker = null;
-    });
-      var streetViewService = new google.maps.StreetViewService();
+  $.ajax({
+    url: 'https://api.foursquare.com/v2/venues/' + marker.id + '?client_id=4XA3L1IFJEI02HKE03NKRML1SHMD4VO5VGKLHUYWJ05QGJ4K&client_secret=BQNQFXJ0PZZTIMQBATLVI2VOSNHVHJ02OJUBG0GWXJCOUWQE&v=20170921',
+    success: function(data) {
+      var rating = data.response.venue.rating || 'No Rating Available';
+      var name = data.response.venue.name; 
+      var likes = data.response.venue.likes.count;
+      var location = data.response.venue.location.address || 'No Address Available';
+
+      streetViewService = new google.maps.StreetViewService();
       var radius = 50;
-      infowindow.setContent('<div>' + marker.name + '</div><div id="pano"></div>');
+      titleContent = '<strong>' + name + '<br></strong>' + '<strong>' + location + '<br></strong>' + '<strong>' + likes + '<br></strong>';
+      infowindow.setContent('<div style = "text-align: center"><strong>' + name + '</strong><br><strong>Foursquare Rating:</strong> ' + rating + "<br><strong>Address:</strong> " + location + '<br><strong>Likes:</strong> ' + likes + '<div id="pano"></div>');
       infowindow.open(map, marker);
+
       streetViewService.getPanoramaByLocation(marker.position, radius, getStreetView);
+    },
+    error: function() {
+      alert("Unable to retrieve information from Foursquare.");
     }
-  }
+  });
+};
+
+// get weather information
+var weatherapi = function(marker) {
+  $.ajax({
+    url: 'http://api.openweathermap.org/data/2.5/weather?lat=37.733795&lon=-122.446747&APPID=49f75f46bfbc60e9a7edf7760cc11716&units=imperial',
+    success: function(data) {
+      current = data.main.temp || 'No Current Temp Available';
+      high = data.main.temp_max || 'No Current High Available';
+      low = data.main.temp_min || 'No Current Low Available';
+      console.log(data);
+    },
+    error: function() {
+      alert("Coundn't retrieve current weather.")
+    }
+  });
+};
 
 
-// show attractions function
-function showMarkers(markers) {
-  var bounds = new google.maps.LatLngBounds();
-  for (var i = 0; i < markers.length; i++) {
-    markers[i].setMap(map);
-    bounds.extend(markers[i].position);
-  }
-  map.fitBounds(bounds);
+// populate info window foursquare and weather information
+function populateInfoWindow(marker, infowindow) {
+    fourSquare(marker);
+    weatherapi(marker);
 }
 
-// hide attractions function
+
+// hide markers function
 function hideMarkers(markers) {
   for (var i = 0; i < markers.length; i++) {
     markers[i].setMap(null);
@@ -317,8 +265,8 @@ function searchBoxPlaces(searchBox) {
   }
 }
 
-function clickListener() {
-  placesDetails(this, largeInfoWindow);
+function clickAddListener() {
+  placesDetails(this, infowindow);
 }
 
 // this function creates markers for each place found in either places search.
@@ -343,7 +291,7 @@ function createMarkers(places) {
   });
 
   var placeInfoWindow = new google.maps.InfoWindow();
-  marker.addListener('click', clickListener);
+  marker.addListener('click', clickAddListener);
   placeMarkers.push(marker);
   if (place.geometry.viewport) {
     bounds.union(place.geometry.viewport);
