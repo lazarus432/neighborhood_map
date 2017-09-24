@@ -67,8 +67,6 @@ function initMap() {
   ViewModel = new ViewModel();
   ko.applyBindings(ViewModel);
   infowindow = new google.maps.InfoWindow();
-  largeInfoWindow = new google.maps.InfoWindow;
-
 }
 
 
@@ -201,8 +199,11 @@ var fourSquare = function(marker) {
 
       streetViewService = new google.maps.StreetViewService();
       var radius = 50;
-      titleContent = '<strong>' + name + '<br></strong>' + '<strong>' + location + '<br></strong>' + '<strong>' + likes + '<br></strong>';
-      infowindow.setContent('<div style = "text-align: center"><strong>' + name + '</strong><br><strong>Foursquare Rating:</strong> ' + rating + "<br><strong>Address:</strong> " + location + '<br><strong>Likes:</strong> ' + likes + '<div id="pano"></div>');
+      titleContent = '<strong>' + name + '<br></strong>' + '<strong>' + location + 
+      '<br></strong>' + '<strong>' + likes + '<br></strong>';
+      infowindow.setContent('<div style = "text-align: center"><strong>' + name + 
+        '</strong><br><strong>Foursquare Rating:</strong> ' + rating + "<br><strong>Address:</strong> " + 
+        location + '<br><strong>Likes:</strong> ' + likes + '<div id="pano"></div>');
       infowindow.open(map, marker);
 
       streetViewService.getPanoramaByLocation(marker.position, radius, getStreetView);

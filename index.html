@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset = "utf-8">
+    <meta charset="utf-8">
     <meta name = "viewport" content = "width = device-width, initial-scale = 1.0">
     <link rel = "stylesheet" type = "text/css" href = "css/styles.css">
   </head>
@@ -9,49 +9,39 @@
     <div class = "container">
       <div class = "nav-bar">
         <div class = "dropdown1">
-          <button class = "dropbtn1">Info</button>
+          <button class = "dropbtn1">Search</button>
           <ul class = "dropdown-content1">
-            <h1>Top Attractions in San Francisco</h1></br>
-
-            <div class = "attract-btn">
-              <input id = "show-attraction" type = "button" value = "Show Attractions">
-              <input id = "hide-attraction" type = "button" value = "Hide Attractions">
-            </div>
-
+            <h1>Top Attractions in San Francisco</h1>
             <div class = "search-content">
-              <span>Location Search:</span></br>
+              <span>Location Search:</span>
               <input id = "places-search" type = "text" placeholder = "IE: Starbucks..."><br><br>
-              <span>Filter Markers:</span></br>
+              <span>Filter Markers:</span>
               <input id = "filter-search" type = "text" placeholder = "Filter Markers..." data-bind = "textInput: go">
             </div>
           </ul>
         </div>
-
           <div class = "dropdown2">
-            <button class = "dropbtn2">Current Weather</button>
+            <button class = "dropbtn2">Local Weather</button>
             <ul class = "dropdown-content2">
-              <ul id = "weather"></ul>
+              <li id = "weather"></li>
             </ul>
           </div>
-
           <div class = "dropdown">
             <button class = "dropbtn">Attractions</button>
             <ul class = "dropdown-content" id = "filterList" data-bind ="foreach: filterList">
-              <li><a href = "#" data-bind = "text: name, click: $root.showClicked"></a></li>
+              <li><a href = "#" data-bind = "text: name, click: $parent.showClicked"></a></li>
             </ul>
           </div>
       </div>
-          
           <div id = "wrapper">
             <div id="map"></div>
           </div>
     </div>
-
+    <script src = "data/attractions.js"></script>
     <script src = "js/lib/knockout.js"></script>
     <script src = "js/lib/jquery-3.2.1.min.js"></script>
     <script src = "js/app.js"></script>
-    <script src = "js/weather-api.js"></script>
-    <script async defer
-      src = "https://maps.googleapis.com/maps/api/js?&libraries=geometry,places&v=3&callback=initMap"></script>
+    <script src = "https://maps.googleapis.com/maps/api/js?&libraries=geometry,places&v=3&callback=initMap"
+      async defer onerror="mapError()"></script>
   </body>
 </html>
