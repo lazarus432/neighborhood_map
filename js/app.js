@@ -75,7 +75,7 @@ var ViewModel = function() {
   this.attractionsList = ko.observableArray(attractions);
 
 
-  var icon_highlighted = markerIcon('C6E2FF')
+  var icon_highlighted = markerIcon('C6E2FF');
   // listing marker icon
   var icon_default = markerIcon('FF4500');
   // highlighted icon when hovered over
