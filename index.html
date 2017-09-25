@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <title>San Francisco Attractions</title>
     <meta charset="utf-8">
     <meta name = "viewport" content = "width = device-width, initial-scale = 1.0">
     <link rel = "stylesheet" type = "text/css" href = "css/styles.css">
@@ -8,34 +9,22 @@
   <body>
     <div class = "container">
       <div class = "nav-bar">
-        <div class = "dropdown1">
-          <button class = "dropbtn1">Search</button>
-          <ul class = "dropdown-content1">
-            <h1>Top Attractions in San Francisco</h1>
-            <div class = "search-content">
-              <span>Location Search:</span>
-              <input id = "places-search" type = "text" placeholder = "IE: Starbucks..."><br><br>
-              <span>Filter Markers:</span>
-              <input id = "filter-search" type = "text" placeholder = "Filter Markers..." data-bind = "textInput: go">
-            </div>
+        <div class = "dropdown">
+          <button class = "dropbtn">Attractions</button>
+          <ul class = "dropdown-content" id = "filterList" data-bind ="foreach: filterList">
+            <li><a href = "#" data-bind = "text: name, click: $parent.showClicked"></a></li>
           </ul>
         </div>
-          <div class = "dropdown2">
-            <button class = "dropbtn2">Local Weather</button>
-            <ul class = "dropdown-content2">
-              <li id = "weather"></li>
-            </ul>
-          </div>
-          <div class = "dropdown">
-            <button class = "dropbtn">Attractions</button>
-            <ul class = "dropdown-content" id = "filterList" data-bind ="foreach: filterList">
-              <li><a href = "#" data-bind = "text: name, click: $parent.showClicked"></a></li>
-            </ul>
-          </div>
       </div>
-          <div id = "wrapper">
-            <div id="map"></div>
-          </div>
+      <div class = "search-content">
+        <span>Location Search:</span>
+        <input id = "places-search" type = "text" placeholder = "IE: Starbucks..."><br><br>
+        <span>Filter Markers:</span>
+        <input id = "filter-search" type = "text" placeholder = "Filter Markers..." data-bind = "textInput: go">
+      </div>
+      <div id = "wrapper">
+        <div id="map"></div>
+      </div>
     </div>
     <script src = "data/attractions.js"></script>
     <script src = "js/lib/knockout.js"></script>
