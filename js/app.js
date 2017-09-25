@@ -69,47 +69,52 @@ function initMap() {
   infowindow = new google.maps.InfoWindow();
 }
 
+var mapError =  function() {
+  alert('Error loading Google Maps!');
+};
+
 
 var ViewModel = function() {
   var self = this;
   this.attractionsList = ko.observableArray(attractions);
 
 
-  var icon_highlighted = markerIcon('C6E2FF');
+
+  var iconHighlighted = markerIcon('C6E2FF');
   // listing marker icon
-  var icon_default = markerIcon('FF4500');
+  var iconDefault = markerIcon('FF4500');
   // highlighted icon when hovered over
-  var current_icon = markerIcon('FFFF33');
+  var currentIcon = markerIcon('FFFF33');
   // create a search box object
   var searchBox = new google.maps.places.SearchBox(
     document.getElementById('places-search'));
 
 
 
-function clickListener() {
+function clickListener(marker) {
   populateInfoWindow(this, infowindow);
-    this.setIcon(icon_default);
+  this.setIcon(currentIcon);
 }
 
 function mouseoverListener() {
-    this.setIcon(icon_highlighted);
+    this.setIcon(iconHighlighted);
 }
 
 function mouseoutListener() {
-    this.setIcon(icon_default);
+    this.setIcon(iconDefault);
 
 }
 
 function toggleBounce(marker) {
-  if(marker.setAnimation() !== null) {
+  marker.setAnimation() !== null
+  marker.setAnimation(null);
+  marker.setAnimation(google.maps.Animation.BOUNCE);
+  setTimeout(function() {
     marker.setAnimation(null);
-  } else {
-    marker.setAnimation(google.maps.Animation.BOUNCE);
-    setTimeout(function() {
-      marker.setAnimation(null);
-    }, 1200);
-  }
-}
+    marker.setIcon(iconDefault);
+    }, 2500);
+
+};
 
   // use attractions array to create an array of markers on initialize
   for (var i = 0; i < attractions.length; i++) {
@@ -121,7 +126,7 @@ function toggleBounce(marker) {
       map: map,
       position: position,
       name: attractions[i].name,
-      icon: icon_default,
+      icon: iconDefault,
       animation: google.maps.Animation.DROP,
       id: attractions[i].placeID
     });
@@ -138,7 +143,6 @@ function toggleBounce(marker) {
     marker.addListener('mouseout', mouseoutListener);
 
   }
-
 
     this.showClicked = function(position) {
       google.maps.event.trigger(position.marker, 'click');
@@ -192,8 +196,7 @@ function getStreetView(data, status) {
     var panorama = new google.maps.StreetViewPanorama(
       document.getElementById('pano'), panoramaOptions);
   } else {
-    infowindow.setContent('<div style = "text-align:center">' + titleContent + ' </div>' +
-      '<div>No Street View Found</div>');
+    infowindow.setContent('<div style = "text-align:center">' + titleContent + '<p>No Street View Image Found</p>' + ' </div>');
   }
 }
 
@@ -211,8 +214,9 @@ var fourSquare = function(marker) {
 
       streetViewService = new google.maps.StreetViewService();
       var radius = 50;
-      titleContent = '<strong>' + name + '<br></strong>' + '<strong>' + location + 
-      '<br></strong>' + '<strong>' + likes + '<br></strong>';
+      titleContent = '<strong>' + name + 
+        '</strong><br><strong>Rating:</strong> ' + rating + "<br><strong>Address:</strong> " + 
+        location + '<br><strong>Likes:</strong> ' + likes + '<div id="pano"></div>';
       infowindow.setContent('<div style = "text-align: center"><strong>' + name + 
         '</strong><br><strong>Rating:</strong> ' + rating + "<br><strong>Address:</strong> " + 
         location + '<br><strong>Likes:</strong> ' + likes + '<div id="pano"></div>');
@@ -293,7 +297,9 @@ function createMarkers(places) {
     bounds.extend(place.geometry.location);
   }
 }
-map.fitBounds(bounds);
+google.maps.event.addDomListener(window, 'resize', function() {
+  map.fitBounds(bounds);
+});
 }
 
 function placesDetails(marker, infowindow) {
