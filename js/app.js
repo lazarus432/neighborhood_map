@@ -101,7 +101,7 @@ function mouseoutListener() {
 }
 
 function toggleBounce(marker) {
-  if(marker.setAnimation() != null) {
+  if(marker.setAnimation() !== null) {
     marker.setAnimation(null);
   } else {
     marker.setAnimation(google.maps.Animation.BOUNCE);
