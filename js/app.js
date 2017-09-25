@@ -88,7 +88,7 @@ var ViewModel = function() {
 
 function clickListener() {
   populateInfoWindow(this, infowindow);
-    this.setIcon(current_icon);
+    this.setIcon(icon_default);
 }
 
 function mouseoverListener() {
@@ -98,6 +98,17 @@ function mouseoverListener() {
 function mouseoutListener() {
     this.setIcon(icon_default);
 
+}
+
+function toggleBounce(marker) {
+  if(marker.setAnimation() != null) {
+    marker.setAnimation(null);
+  } else {
+    marker.setAnimation(google.maps.Animation.BOUNCE);
+    setTimeout(function() {
+      marker.setAnimation(null);
+    }, 1200);
+  }
 }
 
   // use attractions array to create an array of markers on initialize
@@ -131,6 +142,7 @@ function mouseoutListener() {
 
     this.showClicked = function(position) {
       google.maps.event.trigger(position.marker, 'click');
+      toggleBounce(position.marker);
     };
 
     this.showMarkers = function(markers) {
@@ -161,8 +173,8 @@ function mouseoutListener() {
       return result;
     });
   });
-};
 
+};
 
 // get street view information 
 function getStreetView(data, status) {
@@ -202,7 +214,7 @@ var fourSquare = function(marker) {
       titleContent = '<strong>' + name + '<br></strong>' + '<strong>' + location + 
       '<br></strong>' + '<strong>' + likes + '<br></strong>';
       infowindow.setContent('<div style = "text-align: center"><strong>' + name + 
-        '</strong><br><strong>Foursquare Rating:</strong> ' + rating + "<br><strong>Address:</strong> " + 
+        '</strong><br><strong>Rating:</strong> ' + rating + "<br><strong>Address:</strong> " + 
         location + '<br><strong>Likes:</strong> ' + likes + '<div id="pano"></div>');
       infowindow.open(map, marker);
 
@@ -214,29 +226,10 @@ var fourSquare = function(marker) {
   });
 };
 
-// get weather information
-var weatherapi = function(marker) {
-  $.ajax({
-    url: 'http://api.openweathermap.org/data/2.5/weather?lat=37.733795&lon=-122.446747&APPID=49f75f46bfbc60e9a7edf7760cc11716&units=imperial',
-    success: function(data) {
-      current = data.main.temp || 'No Current Temp Available';
-      high = data.main.temp_max || 'No Current High Available';
-      low = data.main.temp_min || 'No Current Low Available';
-      console.log(data);
-    },
-    error: function() {
-      alert("Coundn't retrieve current weather.")
-    }
-  });
-};
-
-
 // populate info window foursquare and weather information
 function populateInfoWindow(marker, infowindow) {
     fourSquare(marker);
-    weatherapi(marker);
 }
-
 
 // hide markers function
 function hideMarkers(markers) {
