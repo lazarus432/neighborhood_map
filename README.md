@@ -19,7 +19,6 @@ Display the top 15 attractions in San Francisco with the click of a button! Sear
 
 * [KnockOutJS](http://knockoutjs.com/) - Organizational Library
 * [Google Maps JavaScript API](https://developers.google.com/maps/documentation/javascript/) - Map
-* [Open Weather Map API](http://openweathermap.org/api) - Current Weather Data
 * [FourSquare API](https://developer.foursquare.com/overview/) - Location Data
 * [Map Style](https://snazzymaps.com/) - Snazzy Maps
 
