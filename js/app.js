@@ -106,7 +106,7 @@ function mouseoutListener() {
 }
 
 function toggleBounce(marker) {
-  marker.setAnimation() !== null
+  marker.setAnimation() !== null;
   marker.setAnimation(null);
   marker.setAnimation(google.maps.Animation.BOUNCE);
   setTimeout(function() {
@@ -114,7 +114,7 @@ function toggleBounce(marker) {
     marker.setIcon(iconDefault);
     }, 2500);
 
-};
+}
 
   // use attractions array to create an array of markers on initialize
   for (var i = 0; i < attractions.length; i++) {
