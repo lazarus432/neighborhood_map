@@ -24,4 +24,4 @@ Display the top 15 attractions in San Francisco with the click of a button! Sear
 
 ## Author
 
-* **Nicolas Bolduc *-Initial Work-* [Lazarus](https://github.com/lazarus432)
+* **Nicolas Bolduc** _-Initial Work-_ [Lazarus](https://github.com/lazarus432)
