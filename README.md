@@ -2,7 +2,6 @@
 
 Display the top 15 attractions in San Francisco with the click of a button! Searching for a restaurant or just a local In-and-Out Burger has never been easier.
 
-Here is a demo of my application:
 ![picture](img/sfAttractionsDemo.gif)
 
 ## Getting Started
